@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employee Card App v1.3.2</title>
-  <link rel="stylesheet" href="./style.css?v=1.3.2" />
+  <title>Employee Card App v1.4</title>
+  <link rel="stylesheet" href="./style.css?v=1.4.0" />
 </head>
 <body>
   <header class="topbar">
@@ -12,29 +12,19 @@
       <h1>Employee Card App</h1>
       <p>ระบบจัดทำ ค้นหา แก้ไข และพิมพ์บัตรพนักงาน</p>
     </div>
-    <span class="version">v1.3.2</span>
+    <span class="version">v1.4</span>
   </header>
 
   <main class="app-shell">
     <section class="dashboard">
-      <article class="stat-card">
-        <span>พนักงานทั้งหมด</span>
-        <strong id="totalEmployees">0</strong>
-      </article>
-      <article class="stat-card">
-        <span>สถานะ ACTIVE</span>
-        <strong id="activeEmployees">0</strong>
-      </article>
-      <article class="stat-card">
-        <span>ผลการค้นหา</span>
-        <strong id="resultCount">0</strong>
-      </article>
+      <article class="stat-card"><span>พนักงานทั้งหมด</span><strong id="totalEmployees">0</strong></article>
+      <article class="stat-card"><span>สถานะ ACTIVE</span><strong id="activeEmployees">0</strong></article>
+      <article class="stat-card"><span>ผลการค้นหา</span><strong id="resultCount">0</strong></article>
     </section>
 
     <section class="search-panel">
       <div class="search-row">
-        <input id="searchInput" type="search"
-          placeholder="ค้นหาจากรหัส ชื่อ ตำแหน่ง หรือแผนก" />
+        <input id="searchInput" type="search" placeholder="ค้นหาจากรหัส ชื่อ ตำแหน่ง หรือแผนก" />
         <button id="searchButton" type="button">ค้นหา</button>
         <button id="showAllButton" type="button" class="secondary">แสดงทั้งหมด</button>
         <button id="newButton" type="button" class="dark">สร้างรายการใหม่</button>
@@ -46,18 +36,11 @@
         <table>
           <thead>
             <tr>
-              <th>รหัสพนักงาน</th>
-              <th>ชื่อไทย</th>
-              <th>ตำแหน่ง</th>
-              <th>แผนก</th>
-              <th>สถานะ</th>
-              <th>จัดการ</th>
+              <th>รหัสพนักงาน</th><th>ชื่อไทย</th><th>ตำแหน่ง</th><th>แผนก</th><th>สถานะ</th><th>จัดการ</th>
             </tr>
           </thead>
           <tbody id="employeeTableBody">
-            <tr>
-              <td colspan="6" class="empty-cell">กำลังโหลดข้อมูล...</td>
-            </tr>
+            <tr><td colspan="6" class="empty-cell">กำลังโหลดข้อมูล...</td></tr>
           </tbody>
         </table>
       </div>
@@ -76,66 +59,33 @@
         <input id="recordId" type="hidden" />
 
         <div class="form-grid">
-          <label>
-            รูปแบบบัตร
+          <label>รูปแบบบัตร
             <select id="templateType">
               <option value="front-white">หน้าบัตร - ขาว</option>
               <option value="front-yellow">หน้าบัตร - เหลือง</option>
-              <option value="back-yellow">หลังบัตร - เหลือง</option>
-              <option value="back-black">หลังบัตร - ดำ/ว่าง</option>
             </select>
           </label>
 
-          <label>
-            รหัสพนักงาน *
-            <input id="empId" type="text" placeholder="เช่น 20519" />
-          </label>
+          <label>รหัสพนักงาน *<input id="empId" type="text" placeholder="เช่น 20519" /></label>
+          <label>ชื่อภาษาไทย *<input id="thaiName" type="text" placeholder="ชื่อ-นามสกุล" /></label>
+          <label>ชื่อภาษาอังกฤษ<input id="engName" type="text" placeholder="Employee name" /></label>
+          <label>ตำแหน่ง<input id="position" type="text" placeholder="ตำแหน่ง" /></label>
+          <label>แผนก<input id="department" type="text" placeholder="แผนก" /></label>
+          <label>วันที่ออกบัตร<input id="issueDate" type="date" /></label>
+          <label>วันหมดอายุ<input id="expiryDate" type="date" /></label>
 
-          <label>
-            ชื่อภาษาไทย *
-            <input id="thaiName" type="text" placeholder="ชื่อ-นามสกุล" />
-          </label>
-
-          <label>
-            ชื่อภาษาอังกฤษ
-            <input id="engName" type="text" placeholder="Employee name" />
-          </label>
-
-          <label>
-            ตำแหน่ง
-            <input id="position" type="text" placeholder="ตำแหน่ง" />
-          </label>
-
-          <label>
-            แผนก
-            <input id="department" type="text" placeholder="แผนก" />
-          </label>
-
-          <label>
-            วันที่ออกบัตร
-            <input id="issueDate" type="date" />
-          </label>
-
-          <label>
-            วันหมดอายุ
-            <input id="expiryDate" type="date" />
-          </label>
-
-          <label>
-            สถานะ
+          <label>สถานะ
             <select id="status">
               <option value="ACTIVE">ACTIVE</option>
               <option value="INACTIVE">INACTIVE</option>
             </select>
           </label>
 
-          <label class="full-width">
-            หมายเหตุ
+          <label class="full-width">หมายเหตุ
             <textarea id="note" rows="2" placeholder="หมายเหตุเพิ่มเติม"></textarea>
           </label>
 
-          <label class="full-width">
-            รูปพนักงาน
+          <label class="full-width">รูปพนักงาน
             <input id="photoInput" type="file" accept="image/*" />
           </label>
         </div>
@@ -153,14 +103,17 @@
       <section class="preview-area">
         <div id="card" class="card front-white">
           <div class="inner-border">
-            <div id="frontContent">
-              <div class="logo">PS</div>
+            <div id="frontContent" class="front-content">
+              <div class="white-watermark" aria-hidden="true">
+                <img src="./assets/logo-pse.jpg" alt="" />
+              </div>
+
+              <img class="brand-logo" src="./assets/logo-pse.jpg" alt="PSE Logo" />
+
               <div class="company-th">บริษัท ผดุงศิลป์วิศวการ จำกัด</div>
               <div class="company-en">PADUNGSILPA ENGINEERING CO.,LTD.</div>
 
-              <div class="photo-box">
-                <img id="photoPreview" alt="รูปพนักงาน" />
-              </div>
+              <div class="photo-box"><img id="photoPreview" alt="รูปพนักงาน" /></div>
 
               <div id="showThaiName" class="thai-name">ชื่อพนักงาน</div>
               <div id="showEngName" class="eng-name">Employee Name</div>
@@ -169,36 +122,15 @@
               <div class="id-line">ID. <span id="showEmpId">-</span></div>
             </div>
 
-            <div id="backContent" class="hidden">
-              <h2>ระเบียบปฏิบัติ</h2>
-              <div class="rule"><span>1.</span><span>ติดป้ายที่หน้าอกด้านซ้ายตลอดเวลา</span></div>
-              <div class="rule"><span>2.</span><span>บัตรหายหรือชำรุดให้รีบแจ้งฝ่ายบุคคลทันที</span></div>
-              <div class="rule"><span>3.</span><span>บัตรนี้เป็นกรรมสิทธิ์ของบริษัทฯ ห้ามให้ผู้อื่นใช้แทน</span></div>
-              <div class="rule"><span>4.</span><span>เมื่อพ้นสภาพจากการเป็นพนักงาน โปรดส่งคืนฝ่ายบุคคล</span></div>
-              <div class="rule">
-                <span>5.</span>
-                <span>
-                  ผู้ใดเก็บบัตรได้ กรุณาส่งคืนฝ่ายบุคคล<br />
-                  100/7 ม.1 ต.ท้ายเกาะ อ.สามโคก<br />
-                  จ.ปทุมธานี 12160<br />
-                  โทร. 02-593-7109-10
-                </span>
-              </div>
-              <p class="note-back">
-                * หมายเหตุ กรณีทำบัตรหาย ต้องเสียค่าปรับในการทำบัตรใหม่ 100 บาท
-              </p>
-            </div>
+            <div id="backContent" class="hidden"></div>
           </div>
         </div>
 
-        <p class="print-note">
-          ขนาดพิมพ์จริง 54 × 86 mm — ทดลองบนกระดาษก่อนใส่ถาด PVC
-        </p>
+        <p class="print-note">ขนาดพิมพ์จริง 54 × 86 mm — ทดลองบนกระดาษก่อนใส่ถาด PVC</p>
       </section>
     </section>
   </main>
 
-  <script src="./app.js?v=1.3.3"></script>
-
+  <script src="./app.js?v=1.4.0"></script>
 </body>
 </html>
