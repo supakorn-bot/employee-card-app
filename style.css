@@ -2,86 +2,289 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-family: "Noto Sans Thai", "TH Sarabun New", Tahoma, Arial, sans-serif;
+  color: #172033;
+  background: #eef2f7;
+}
+
 body {
   margin: 0;
-  font-family: "TH Sarabun New", Tahoma, Arial, sans-serif;
-  background: #f3f4f6;
+  min-width: 320px;
 }
 
-.app {
-  display: flex;
-  gap: 30px;
-  padding: 30px;
-}
-
-.panel {
-  width: 340px;
-  background: white;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px rgba(0,0,0,.12);
-}
-
-label {
-  display: block;
-  margin-top: 12px;
-  font-weight: bold;
-}
-
-input, select {
-  width: 100%;
-  padding: 9px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 button {
-  width: 100%;
-  margin-top: 14px;
-  padding: 12px;
-  border: none;
+  border: 0;
   border-radius: 10px;
-  background: #0057ff;
-  color: white;
-  font-weight: bold;
+  padding: 11px 16px;
+  background: #1358d8;
+  color: #fff;
+  font-weight: 700;
   cursor: pointer;
 }
 
-button:last-child {
-  background: #16a34a;
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+button.secondary {
+  background: #64748b;
+}
+
+button.dark {
+  background: #172033;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 28px;
+  color: #fff;
+  background: #172033;
+}
+
+.topbar h1,
+.topbar p {
+  margin: 0;
+}
+
+.topbar p {
+  margin-top: 4px;
+  color: #cad5e5;
+}
+
+.version {
+  border-radius: 999px;
+  padding: 7px 12px;
+  background: #2e405d;
+  font-weight: 700;
+}
+
+.app-shell {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.stat-card,
+.search-panel,
+.panel {
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.stat-card {
+  padding: 18px 20px;
+}
+
+.stat-card span {
+  color: #64748b;
+}
+
+.stat-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 30px;
+}
+
+.search-panel {
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto auto auto;
+  gap: 10px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #ccd5e2;
+  border-radius: 9px;
+  padding: 10px 11px;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.status-text,
+.save-status {
+  min-height: 22px;
+  margin-top: 10px;
+}
+
+.success {
+  color: #15803d;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e5eaf1;
+  padding: 11px 10px;
+  text-align: left;
+}
+
+th {
+  color: #475569;
+  background: #f8fafc;
+}
+
+.table-action {
+  padding: 7px 10px;
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+.table-action.edit {
+  background: #d97706;
+}
+
+.table-action.print {
+  background: #15803d;
+}
+
+.empty-cell {
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(360px, 520px) minmax(360px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.panel {
+  padding: 22px;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.panel-heading h2,
+.panel-heading p {
+  margin: 0;
+}
+
+.panel-heading p {
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: #854d0e;
+  background: #fef3c7;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+}
+
+label {
+  font-weight: 700;
+  color: #334155;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.save-button {
+  background: #d97706;
+}
+
+.print-button {
+  background: #15803d;
 }
 
 .preview-area {
-  flex: 1;
+  min-height: 720px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 28px;
+  overflow: auto;
 }
 
-/* ขนาดจริง 54 x 86 mm */
 .card {
   width: 54mm;
   height: 86mm;
   padding: 1.5mm;
-  transform: scale(1.45);
+  transform: scale(1.55);
   transform-origin: top center;
-  box-shadow: 0 0 15px rgba(0,0,0,.3);
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
 }
 
 .inner-border {
+  position: relative;
   width: 100%;
   height: 100%;
-  border: 1mm double blue;
-  padding: 2.5mm;
+  border: 1mm double #001ee6;
+  padding: 2.2mm;
+  overflow: hidden;
   text-align: center;
-  position: relative;
 }
 
-/* Template */
 .front-white {
-  background: white;
+  background: #fff;
 }
 
 .front-yellow,
@@ -90,46 +293,42 @@ button:last-child {
 }
 
 .back-black {
-  background: black;
-}
-
-.back-black .inner-border {
-  border-color: blue;
+  background: #000;
 }
 
 .logo {
-  width: 22mm;
-  height: 22mm;
-  border: 1mm solid blue;
-  color: blue;
+  width: 19mm;
+  height: 19mm;
+  margin: 0.5mm auto 2.2mm;
+  border: 0.8mm solid #001b9b;
   border-radius: 50%;
-  margin: 1mm auto 4mm;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Georgia, serif;
-  font-size: 24pt;
-  font-weight: bold;
-  line-height: .8;
+  color: #001b9b;
+  font: 700 22pt Georgia, serif;
 }
 
 .company-th {
-  font-size: 13pt;
-  font-weight: bold;
+  font-size: 9.6pt;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .company-en {
-  font-size: 8pt;
-  font-weight: bold;
-  margin-bottom: 2mm;
+  margin-top: 0.4mm;
+  font-size: 6.2pt;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .photo-box {
-  width: 27mm;
-  height: 31mm;
-  margin: 2mm auto;
+  width: 24mm;
+  height: 28mm;
+  margin: 1.7mm auto 1mm;
   overflow: hidden;
-  background: #ddd;
+  border: 0.25mm solid #b7b7b7;
+  background: #e5e7eb;
 }
 
 .photo-box img {
@@ -139,100 +338,143 @@ button:last-child {
 }
 
 .thai-name {
-  color: blue;
-  font-size: 14pt;
-  font-weight: bold;
-  margin-top: 1mm;
+  color: #001ee6;
+  font-size: 10.7pt;
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 .eng-name {
-  font-size: 12pt;
-  font-weight: bold;
+  font-size: 8.8pt;
+  font-weight: 700;
+  line-height: 1.05;
 }
 
-.position {
-  font-size: 10pt;
+.position,
+.department {
+  font-size: 7.3pt;
+  line-height: 1.05;
 }
 
 .id-line {
-  font-size: 11pt;
-  font-weight: bold;
+  margin-top: 0.6mm;
+  font-size: 8.5pt;
+  font-weight: 700;
 }
 
-/* หลังบัตร */
 #backContent {
   width: 100%;
   height: 100%;
-  padding: 1.5mm 2mm;
   overflow: hidden;
+  padding: 0.8mm 1mm;
   text-align: left;
-  font-size: 7.7pt;
-  line-height: 1.2;
+  font-size: 6.8pt;
+  line-height: 1.18;
 }
 
 #backContent h2 {
   margin: 0 0 2mm;
   text-align: center;
-  font-size: 12pt;
+  font-size: 10.5pt;
   line-height: 1;
 }
 
-#backContent p {
-  margin: 0 0 1.4mm;
-}
-
-#backContent .rule {
+.rule {
   display: grid;
-  grid-template-columns: 4mm 1fr;
-  gap: 0.5mm;
+  grid-template-columns: 3.3mm 1fr;
+  gap: 0.4mm;
+  margin-bottom: 1.45mm;
 }
 
-#backContent .rule-number {
-  text-align: right;
+.note-back {
+  margin: 2.3mm 0 0;
+  font-size: 6.2pt;
+  line-height: 1.16;
 }
 
-#backContent .note {
-  margin-top: 2.5mm;
-  font-size: 7pt;
-  line-height: 1.15;
-}
-
-#backContent h2 {
+.print-note {
+  margin-top: 205px;
+  color: #64748b;
   text-align: center;
-  margin: 0 0 3mm;
-  font-size: 14pt;
-}
-
-#backContent p {
-  margin: 1.5mm 0;
-}
-
-.note {
-  margin-top: 4mm !important;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* พิมพ์จริง */
-@media print {
-  body {
-    background: white;
+@media (max-width: 980px) {
+  .dashboard {
+    grid-template-columns: 1fr;
   }
 
-  .panel {
-    display: none;
+  .search-row {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .app {
-    padding: 0;
-    display: block;
+  .search-row input {
+    grid-column: 1 / -1;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
   }
 
   .preview-area {
-    padding: 0;
+    min-height: 650px;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar,
+  .app-shell {
+    padding: 16px;
+  }
+
+  .form-grid,
+  .button-grid,
+  .search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .search-row input {
+    grid-column: auto;
+  }
+
+  .card {
+    transform: scale(1.25);
+  }
+
+  .preview-area {
+    min-height: 560px;
+  }
+
+  .print-note {
+    margin-top: 125px;
+  }
+}
+
+@media print {
+  body {
+    margin: 0;
+    background: #fff;
+  }
+
+  .topbar,
+  .dashboard,
+  .search-panel,
+  .panel,
+  .print-note {
+    display: none !important;
+  }
+
+  .app-shell,
+  .workspace,
+  .preview-area {
     display: block;
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
   }
 
   .card {
@@ -245,40 +487,4 @@ button:last-child {
     size: 54mm 86mm;
     margin: 0;
   }
-
-
-  .button-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.button-grid button {
-  margin-top: 0;
-}
-
-.save-button {
-  background: #f59e0b;
-}
-
-.print-button {
-  background: #16a34a;
-}
-
-.save-status {
-  min-height: 22px;
-  margin-top: 10px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.save-status.success {
-  color: #15803d;
-}
-
-.save-status.error {
-  color: #b91c1c;
-}
-
 }
