@@ -1,0 +1,284 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "TH Sarabun New", Tahoma, Arial, sans-serif;
+  background: #f3f4f6;
+}
+
+.app {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+}
+
+.panel {
+  width: 340px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.12);
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 9px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #0057ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:last-child {
+  background: #16a34a;
+}
+
+.preview-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+
+/* ขนาดจริง 54 x 86 mm */
+.card {
+  width: 54mm;
+  height: 86mm;
+  padding: 1.5mm;
+  transform: scale(1.45);
+  transform-origin: top center;
+  box-shadow: 0 0 15px rgba(0,0,0,.3);
+}
+
+.inner-border {
+  width: 100%;
+  height: 100%;
+  border: 1mm double blue;
+  padding: 2.5mm;
+  text-align: center;
+  position: relative;
+}
+
+/* Template */
+.front-white {
+  background: white;
+}
+
+.front-yellow,
+.back-yellow {
+  background: #fff200;
+}
+
+.back-black {
+  background: black;
+}
+
+.back-black .inner-border {
+  border-color: blue;
+}
+
+.logo {
+  width: 22mm;
+  height: 22mm;
+  border: 1mm solid blue;
+  color: blue;
+  border-radius: 50%;
+  margin: 1mm auto 4mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 24pt;
+  font-weight: bold;
+  line-height: .8;
+}
+
+.company-th {
+  font-size: 13pt;
+  font-weight: bold;
+}
+
+.company-en {
+  font-size: 8pt;
+  font-weight: bold;
+  margin-bottom: 2mm;
+}
+
+.photo-box {
+  width: 27mm;
+  height: 31mm;
+  margin: 2mm auto;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thai-name {
+  color: blue;
+  font-size: 14pt;
+  font-weight: bold;
+  margin-top: 1mm;
+}
+
+.eng-name {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.position {
+  font-size: 10pt;
+}
+
+.id-line {
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+/* หลังบัตร */
+#backContent {
+  width: 100%;
+  height: 100%;
+  padding: 1.5mm 2mm;
+  overflow: hidden;
+  text-align: left;
+  font-size: 7.7pt;
+  line-height: 1.2;
+}
+
+#backContent h2 {
+  margin: 0 0 2mm;
+  text-align: center;
+  font-size: 12pt;
+  line-height: 1;
+}
+
+#backContent p {
+  margin: 0 0 1.4mm;
+}
+
+#backContent .rule {
+  display: grid;
+  grid-template-columns: 4mm 1fr;
+  gap: 0.5mm;
+}
+
+#backContent .rule-number {
+  text-align: right;
+}
+
+#backContent .note {
+  margin-top: 2.5mm;
+  font-size: 7pt;
+  line-height: 1.15;
+}
+
+#backContent h2 {
+  text-align: center;
+  margin: 0 0 3mm;
+  font-size: 14pt;
+}
+
+#backContent p {
+  margin: 1.5mm 0;
+}
+
+.note {
+  margin-top: 4mm !important;
+}
+
+.hidden {
+  display: none;
+}
+
+/* พิมพ์จริง */
+@media print {
+  body {
+    background: white;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .app {
+    padding: 0;
+    display: block;
+  }
+
+  .preview-area {
+    padding: 0;
+    display: block;
+  }
+
+  .card {
+    transform: none;
+    box-shadow: none;
+    margin: 0;
+  }
+
+  @page {
+    size: 54mm 86mm;
+    margin: 0;
+  }
+
+
+  .button-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.button-grid button {
+  margin-top: 0;
+}
+
+.save-button {
+  background: #f59e0b;
+}
+
+.print-button {
+  background: #16a34a;
+}
+
+.save-status {
+  min-height: 22px;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.save-status.success {
+  color: #15803d;
+}
+
+.save-status.error {
+  color: #b91c1c;
+}
+
+}

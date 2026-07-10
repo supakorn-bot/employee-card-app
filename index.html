@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Card App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+  <div class="panel">
+    <h1>Employee Card App</h1>
+    <p>บัตรแนวตั้ง 54 × 86 mm</p>
+
+    <label>เลือกแบบบัตร</label>
+    <select id="templateType">
+      <option value="front-white">หน้าบัตร - ขาว</option>
+      <option value="front-yellow">หน้าบัตร - เหลือง</option>
+      <option value="back-yellow">หลังบัตร - เหลือง</option>
+      <option value="back-black">หลังบัตร - ดำ/ว่าง</option>
+    </select>
+
+    <label>ชื่อไทย</label>
+    <input id="thaiName" value="คุณสมบัติ อุตุ้ม" />
+
+    <label>ชื่ออังกฤษ</label>
+    <input id="engName" value="Miss.Somnuk Autum" />
+
+    <label>ตำแหน่ง</label>
+    <input id="position" value="พนักงานแผนกอะไหล่ 1" />
+
+    <label>ID</label>
+    <input id="empId" value="20519" />
+
+    <label>รูปพนักงาน</label>
+    <input id="photoInput" type="file" accept="image/*" />
+
+<div class="button-grid">
+  <button type="button" onclick="updateCard()">
+    ดูตัวอย่าง
+  </button>
+
+  <button type="button" class="save-button" onclick="saveEmployee()">
+    บันทึก Google Sheet
+  </button>
+
+  <button type="button" class="print-button" onclick="window.print()">
+    พิมพ์บัตร
+  </button>
+</div>
+
+<div id="saveStatus" class="save-status"></div>
+  </div>
+
+  <div class="preview-area">
+    <div id="card" class="card front-white">
+      <div class="inner-border">
+
+        <div id="frontContent">
+          <div class="logo">PS</div>
+
+          <div class="company-th">บริษัท ผดุงศิลป์วิศวการ จำกัด</div>
+          <div class="company-en">PADUNGSILPA ENGINEERING CO.,LTD.</div>
+
+          <div class="photo-box">
+            <img id="photoPreview" />
+          </div>
+
+          <div id="showThaiName" class="thai-name">คุณสมบัติ อุตุ้ม</div>
+          <div id="showEngName" class="eng-name">Miss.Somnuk Autum</div>
+          <div id="showPosition" class="position">พนักงานแผนกอะไหล่ 1</div>
+          <div class="id-line">ID. <span id="showEmpId">20519</span></div>
+        </div>
+
+        <div id="backContent" class="hidden">
+  <h2>ระเบียบปฏิบัติ</h2>
+
+  <div class="rule">
+    <span class="rule-number">1.</span>
+    <span>ติดป้ายที่หน้าอกด้านซ้ายตลอดเวลา</span>
+  </div>
+
+  <div class="rule">
+    <span class="rule-number">2.</span>
+    <span>บัตรหายหรือชำรุดให้รีบแจ้งฝ่ายบุคคลทันที</span>
+  </div>
+
+  <div class="rule">
+    <span class="rule-number">3.</span>
+    <span>บัตรนี้เป็นกรรมสิทธิ์ของบริษัทฯ ห้ามให้ผู้อื่นใช้แทน</span>
+  </div>
+
+  <div class="rule">
+    <span class="rule-number">4.</span>
+    <span>เมื่อพ้นสภาพจากการเป็นพนักงาน โปรดส่งคืนฝ่ายบุคคล</span>
+  </div>
+
+  <div class="rule">
+    <span class="rule-number">5.</span>
+    <span>
+      ผู้ใดเก็บบัตรได้ กรุณาส่งคืนฝ่ายบุคคล<br>
+      100/7 ม.1 ต.ท้ายเกาะ อ.สามโคก<br>
+      จ.ปทุมธานี 12160<br>
+      โทร. 02-593-7109-10
+    </span>
+  </div>
+
+  <p class="note">
+    * หมายเหตุ กรณีทำบัตรหาย ต้องเสียค่าปรับในการทำบัตรใหม่ 100 บาท
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
