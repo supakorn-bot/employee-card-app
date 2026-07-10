@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzqWLozJR_d6HGy8zdrvGjfrm6D7yBAoIxJr_12KbpnvW2SW8PQPowXHlCLttzDb562Eg/exec";
+  "https://script.google.com/macros/s/AKfycbxSzm0r9jC59FV_h6Q6yF2EZ8UyPeDS7LRKxkXuxS6gyOMF87U3iRiERW3OO8VkdWOD/exec";
 
 const elements = {
   recordId: document.getElementById("recordId"),
@@ -57,7 +57,10 @@ function updateCard() {
 
   const isFront = type.startsWith("front");
   elements.frontContent.classList.toggle("hidden", !isFront);
-  elements.backContent.classList.toggle("hidden", isFront || type === "back-black");
+  elements.backContent.classList.toggle(
+    "hidden",
+    isFront || type === "back-black"
+  );
 }
 
 function setStatus(target, message, type = "") {
@@ -65,9 +68,7 @@ function setStatus(target, message, type = "") {
   target.className =
     target === elements.saveStatus ? "save-status" : "status-text";
 
-  if (type) {
-    target.classList.add(type);
-  }
+  if (type) target.classList.add(type);
 }
 
 function setLoading(isLoading) {
@@ -118,6 +119,7 @@ function validateEmployee(data) {
 
 async function saveEmployee() {
   updateCard();
+
   const data = collectFormData();
   const errorMessage = validateEmployee(data);
 
@@ -153,7 +155,7 @@ async function saveEmployee() {
     );
 
     await loadEmployees("");
-    resetForm();
+    resetForm(false);
   } catch (error) {
     console.error(error);
     setStatus(
@@ -171,11 +173,12 @@ async function loadEmployees(keyword = "") {
 
   try {
     const url = new URL(GOOGLE_SCRIPT_URL);
-    url.searchParams.set("action", "list");
 
     if (keyword.trim()) {
       url.searchParams.set("q", keyword.trim());
     }
+
+    url.searchParams.set("_", Date.now().toString());
 
     const response = await fetch(url.toString(), {
       method: "GET",
@@ -190,7 +193,10 @@ async function loadEmployees(keyword = "") {
 
     employeesCache = Array.isArray(result.data) ? result.data : [];
     renderEmployeeTable(employeesCache);
-    updateDashboard(result.total ?? employeesCache.length, employeesCache);
+    updateDashboard(
+      Number(result.total ?? employeesCache.length),
+      employeesCache
+    );
 
     setStatus(
       elements.searchStatus,
@@ -223,11 +229,11 @@ function renderEmployeeTable(employees) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td>${escapeHtml(employee.employeeId)}</td>
-      <td>${escapeHtml(employee.thaiName)}</td>
-      <td>${escapeHtml(employee.position)}</td>
-      <td>${escapeHtml(employee.department)}</td>
-      <td>${escapeHtml(employee.status)}</td>
+      <td>${escapeHtml(employee.employeeId || "-")}</td>
+      <td>${escapeHtml(employee.thaiName || "-")}</td>
+      <td>${escapeHtml(employee.position || "-")}</td>
+      <td>${escapeHtml(employee.department || "-")}</td>
+      <td>${escapeHtml(employee.status || "ACTIVE")}</td>
       <td>
         <button type="button" class="table-action edit">แก้ไข</button>
         <button type="button" class="table-action print">พิมพ์</button>
@@ -236,7 +242,10 @@ function renderEmployeeTable(employees) {
 
     row.querySelector(".edit").addEventListener("click", () => {
       fillForm(employee);
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      document.querySelector(".workspace").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     });
 
     row.querySelector(".print").addEventListener("click", () => {
@@ -251,7 +260,8 @@ function renderEmployeeTable(employees) {
 
 function updateDashboard(total, employees) {
   const activeCount = employees.filter(
-    (employee) => String(employee.status).toUpperCase() === "ACTIVE"
+    (employee) =>
+      String(employee.status || "ACTIVE").toUpperCase() === "ACTIVE"
   ).length;
 
   elements.totalEmployees.textContent = total;
@@ -281,7 +291,8 @@ function fillForm(employee) {
     elements.photoPreview.removeAttribute("src");
   }
 
-  elements.formModeText.textContent = `กำลังแก้ไขรหัส ${employee.employeeId || ""}`;
+  elements.formModeText.textContent =
+    `กำลังแก้ไขรหัส ${employee.employeeId || ""}`;
   elements.editingBadge.classList.remove("hidden");
   elements.cancelEditButton.classList.remove("hidden");
   elements.saveButton.textContent = "อัปเดตข้อมูล";
@@ -289,7 +300,7 @@ function fillForm(employee) {
   updateCard();
 }
 
-function resetForm() {
+function resetForm(clearStatus = true) {
   elements.recordId.value = "";
   elements.empId.value = "";
   elements.thaiName.value = "";
@@ -311,7 +322,10 @@ function resetForm() {
   elements.editingBadge.classList.add("hidden");
   elements.cancelEditButton.classList.add("hidden");
   elements.saveButton.textContent = "บันทึก Google Sheet";
-  setStatus(elements.saveStatus, "");
+
+  if (clearStatus) {
+    setStatus(elements.saveStatus, "");
+  }
 
   updateCard();
 }
@@ -340,9 +354,7 @@ function escapeHtml(value) {
 elements.photoInput.addEventListener("change", () => {
   const file = elements.photoInput.files[0];
 
-  if (!file) {
-    return;
-  }
+  if (!file) return;
 
   if (!file.type.startsWith("image/")) {
     alert("กรุณาเลือกไฟล์รูปภาพ");
@@ -383,21 +395,42 @@ elements.photoInput.addEventListener("change", () => {
   element.addEventListener("change", updateCard);
 });
 
-document.getElementById("previewButton").addEventListener("click", updateCard);
-document.getElementById("saveButton").addEventListener("click", saveEmployee);
-document.getElementById("printButton").addEventListener("click", () => {
-  updateCard();
-  window.print();
-});
-document.getElementById("searchButton").addEventListener("click", () => {
-  loadEmployees(elements.searchInput.value);
-});
-document.getElementById("showAllButton").addEventListener("click", () => {
-  elements.searchInput.value = "";
-  loadEmployees("");
-});
-document.getElementById("newButton").addEventListener("click", resetForm);
-elements.cancelEditButton.addEventListener("click", resetForm);
+document
+  .getElementById("previewButton")
+  .addEventListener("click", updateCard);
+
+document
+  .getElementById("saveButton")
+  .addEventListener("click", saveEmployee);
+
+document
+  .getElementById("printButton")
+  .addEventListener("click", () => {
+    updateCard();
+    window.print();
+  });
+
+document
+  .getElementById("searchButton")
+  .addEventListener("click", () => {
+    loadEmployees(elements.searchInput.value);
+  });
+
+document
+  .getElementById("showAllButton")
+  .addEventListener("click", () => {
+    elements.searchInput.value = "";
+    loadEmployees("");
+  });
+
+document
+  .getElementById("newButton")
+  .addEventListener("click", () => resetForm());
+
+elements.cancelEditButton.addEventListener(
+  "click",
+  () => resetForm()
+);
 
 elements.searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {

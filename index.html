@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employee Card App v1.3</title>
-<link rel="stylesheet" href="./style.css?v=1.3.1" />
+  <title>Employee Card App v1.3.2</title>
+  <link rel="stylesheet" href="./style.css?v=1.3.2" />
 </head>
 <body>
   <header class="topbar">
@@ -12,7 +12,7 @@
       <h1>Employee Card App</h1>
       <p>ระบบจัดทำ ค้นหา แก้ไข และพิมพ์บัตรพนักงาน</p>
     </div>
-    <span class="version">v1.3</span>
+    <span class="version">v1.3.2</span>
   </header>
 
   <main class="app-shell">
@@ -33,11 +33,8 @@
 
     <section class="search-panel">
       <div class="search-row">
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="ค้นหาจากรหัส ชื่อ ตำแหน่ง หรือแผนก"
-        />
+        <input id="searchInput" type="search"
+          placeholder="ค้นหาจากรหัส ชื่อ ตำแหน่ง หรือแผนก" />
         <button id="searchButton" type="button">ค้นหา</button>
         <button id="showAllButton" type="button" class="secondary">แสดงทั้งหมด</button>
         <button id="newButton" type="button" class="dark">สร้างรายการใหม่</button>
@@ -59,7 +56,7 @@
           </thead>
           <tbody id="employeeTableBody">
             <tr>
-              <td colspan="6" class="empty-cell">ยังไม่ได้โหลดข้อมูล</td>
+              <td colspan="6" class="empty-cell">กำลังโหลดข้อมูล...</td>
             </tr>
           </tbody>
         </table>
@@ -158,7 +155,6 @@
           <div class="inner-border">
             <div id="frontContent">
               <div class="logo">PS</div>
-
               <div class="company-th">บริษัท ผดุงศิลป์วิศวการ จำกัด</div>
               <div class="company-en">PADUNGSILPA ENGINEERING CO.,LTD.</div>
 
@@ -175,7 +171,6 @@
 
             <div id="backContent" class="hidden">
               <h2>ระเบียบปฏิบัติ</h2>
-
               <div class="rule"><span>1.</span><span>ติดป้ายที่หน้าอกด้านซ้ายตลอดเวลา</span></div>
               <div class="rule"><span>2.</span><span>บัตรหายหรือชำรุดให้รีบแจ้งฝ่ายบุคคลทันที</span></div>
               <div class="rule"><span>3.</span><span>บัตรนี้เป็นกรรมสิทธิ์ของบริษัทฯ ห้ามให้ผู้อื่นใช้แทน</span></div>
@@ -189,7 +184,6 @@
                   โทร. 02-593-7109-10
                 </span>
               </div>
-
               <p class="note-back">
                 * หมายเหตุ กรณีทำบัตรหาย ต้องเสียค่าปรับในการทำบัตรใหม่ 100 บาท
               </p>
@@ -204,6 +198,6 @@
     </section>
   </main>
 
-<script src="./app.js?v=1.3.1"></script>
+  <script src="./app.js?v=1.3.2"></script>
 </body>
 </html>
