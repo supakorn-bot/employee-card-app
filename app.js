@@ -40,6 +40,8 @@ let employeePhotoData = "";
 let currentPhotoUrl = "";
 let employeesCache = [];
 
+
+
 function updateCard() {
   const type = elements.templateType.value;
   elements.card.className = `card ${type}`;
@@ -269,6 +271,37 @@ function updateDashboard(total, employees) {
   elements.resultCount.textContent = employees.length;
 }
 
+
+function normalizePhotoUrl(url) {
+  if (!url) return "";
+
+  const value = String(url).trim();
+
+  // รูปแบบ Base64 เดิม
+  if (value.startsWith("data:image/")) {
+    return value;
+  }
+
+  // ดึง File ID จาก Google Drive URL
+  const patterns = [
+    /[?&]id=([^&]+)/,
+    /\/file\/d\/([^/]+)/,
+    /\/d\/([^/]+)/
+  ];
+
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+
+    if (match && match[1]) {
+      return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+    }
+  }
+
+  return value;
+}
+
+
+
 function fillForm(employee) {
   elements.recordId.value = employee.id || "";
   elements.empId.value = employee.employeeId || "";
@@ -283,13 +316,21 @@ function fillForm(employee) {
   elements.note.value = employee.note || "";
 
   currentPhotoUrl = employee.photoUrl || "";
-  employeePhotoData = "";
+employeePhotoData = "";
 
-  if (currentPhotoUrl) {
-    elements.photoPreview.src = currentPhotoUrl;
-  } else {
+const displayPhotoUrl = normalizePhotoUrl(currentPhotoUrl);
+
+if (displayPhotoUrl) {
+  elements.photoPreview.src = displayPhotoUrl;
+
+  elements.photoPreview.onerror = function () {
+    console.error("โหลดรูปไม่สำเร็จ:", displayPhotoUrl);
     elements.photoPreview.removeAttribute("src");
-  }
+    elements.photoPreview.alt = "ไม่สามารถโหลดรูปจาก Google Drive";
+  };
+} else {
+  elements.photoPreview.removeAttribute("src");
+}
 
   elements.formModeText.textContent =
     `กำลังแก้ไขรหัส ${employee.employeeId || ""}`;
