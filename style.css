@@ -266,7 +266,7 @@ label {
 .card {
   width: 54mm;
   height: 86mm;
-  padding: 1.2mm;
+  padding: 1.5mm;
   transform: scale(1.55);
   transform-origin: top center;
   background: #fff;
@@ -277,28 +277,32 @@ label {
   position: relative;
   width: 100%;
   height: 100%;
-  border: 0.85mm double #102aa8;
-  padding: 1.8mm 2.2mm 2mm;
+  border: 1mm double #001ee6;
+  padding: 2.2mm;
   overflow: hidden;
   text-align: center;
 }
 
-.front-white { background: #fff; }
-.front-yellow { background: #fff200; }
+.front-white {
+  background: #fff;
+}
 
-.front-content {
-  position: relative;
-  z-index: 1;
-  height: 100%;
+.front-yellow,
+.back-yellow {
+  background: #fff200;
+}
+
+.back-black {
+  background: #000;
 }
 
 .brand-logo {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: block;
-  width: 18.5mm;
-  height: 18.5mm;
-  margin: 0.7mm auto 2.2mm;
+  width: 19mm;
+  height: 19mm;
+  margin: 0.5mm auto 2.2mm;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -311,53 +315,56 @@ label {
   position: absolute;
   z-index: 0;
   display: block;
-  left: 50%;
-  top: 21.5mm;
-  width: 40mm;
-  height: 50mm;
-  transform: translateX(-50%);
-  border: 2.2mm solid rgba(88, 98, 205, 0.14);
-  border-radius: 50%;
+  inset: 0;
   pointer-events: none;
+}
+
+.front-white .white-watermark::before,
+.front-white .white-watermark::after {
+  content: "";
+  position: absolute;
+  top: 23mm;
+  width: 18mm;
+  height: 46mm;
+  border: 2.2mm solid rgba(88, 105, 220, 0.18);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+}
+
+.front-white .white-watermark::before {
+  left: -5.5mm;
+  transform: rotate(-8deg);
+}
+
+.front-white .white-watermark::after {
+  right: -6.2mm;
+  transform: rotate(10deg);
 }
 
 .front-yellow .white-watermark {
   display: none;
 }
 
-.company-th,
-.company-en,
-.photo-box,
-.thai-name,
-.eng-name,
-.position,
-.department,
-.id-line {
-  position: relative;
-  z-index: 2;
-}
-
 .company-th {
-  font-size: 9.5pt;
+  font-size: 9.6pt;
   font-weight: 700;
-  line-height: 1.05;
   white-space: nowrap;
 }
 
 .company-en {
   margin-top: 0.4mm;
-  font-size: 5.9pt;
+  font-size: 6.2pt;
   font-weight: 700;
-  line-height: 1.05;
   white-space: nowrap;
 }
 
 .photo-box {
   width: 24mm;
   height: 28mm;
-  margin: 2mm auto 1mm;
+  margin: 1.7mm auto 1mm;
   overflow: hidden;
-  border: 0.2mm solid #b8b8b8;
+  border: 0.25mm solid #b7b7b7;
   background: #e5e7eb;
 }
 
@@ -365,32 +372,67 @@ label {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .thai-name {
   color: #001ee6;
-  font-size: 10.5pt;
+  font-size: 10.7pt;
   font-weight: 700;
   line-height: 1.05;
 }
 
 .eng-name {
-  font-size: 8.5pt;
+  font-size: 8.8pt;
   font-weight: 700;
   line-height: 1.05;
 }
 
 .position,
 .department {
-  font-size: 7.1pt;
-  line-height: 1.04;
+  font-size: 7.3pt;
+  line-height: 1.05;
 }
 
 .id-line {
   margin-top: 0.6mm;
-  font-size: 8.4pt;
+  font-size: 8.5pt;
   font-weight: 700;
+}
+
+#backContent {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0.8mm 1mm;
+  text-align: left;
+  font-size: 6.8pt;
+  line-height: 1.18;
+}
+
+#backContent h2 {
+  margin: 0 0 2mm;
+  text-align: center;
+  font-size: 10.5pt;
+  line-height: 1;
+}
+
+.rule {
+  display: grid;
+  grid-template-columns: 3.3mm 1fr;
+  gap: 0.4mm;
+  margin-bottom: 1.45mm;
+}
+
+.note-back {
+  margin: 2.3mm 0 0;
+  font-size: 6.2pt;
+  line-height: 1.16;
+}
+
+.print-note {
+  margin-top: 205px;
+  color: #64748b;
+  text-align: center;
 }
 
 .hidden {
@@ -482,4 +524,16 @@ label {
     size: 54mm 86mm;
     margin: 0;
   }
+}
+
+.company-th,
+.company-en,
+.photo-box,
+.thai-name,
+.eng-name,
+.position,
+.department,
+.id-line {
+  position: relative;
+  z-index: 2;
 }
