@@ -453,66 +453,112 @@ label {
   }
 }
 
+
+.print-pair-panel {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #d7dfeb;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.print-pair-panel h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.print-pair-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.print-pair-note {
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.tray-print-sheet {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .print-pair-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 @media print {
+  html,
   body {
-    margin: 0;
-    background: #fff;
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
   }
 
-  .topbar,
-  .dashboard,
-  .search-panel,
-  .panel,
-  .print-note {
+  body > *:not(.tray-print-sheet) {
     display: none !important;
   }
 
-  .app-shell,
-  .workspace,
-  .preview-area {
-    display: block;
-    width: auto;
-    min-height: auto;
-    margin: 0;
-    padding: 0;
+  .tray-print-sheet {
+    position: relative !important;
+    display: block !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #fff !important;
   }
 
-  .card {
-    transform: none;
-    box-shadow: none;
-    margin: 0;
+  /*
+    ตำแหน่งวัดจากไฟล์ 1112.pdf:
+    ใบบน  x=31.04mm, y=9.10mm
+    ใบล่าง x=31.04mm, y=70.48mm
+  */
+  .tray-slot {
+    position: absolute !important;
+    left: 31.04mm !important;
+    width: 86mm !important;
+    height: 54mm !important;
+    overflow: visible !important;
+  }
+
+  .tray-slot-top {
+    top: 9.10mm !important;
+  }
+
+  .tray-slot-bottom {
+    top: 70.48mm !important;
+  }
+
+  .tray-card-copy {
+    position: absolute !important;
+    left: 0 !important;
+    top: 54mm !important;
+    width: 54mm !important;
+    height: 86mm !important;
+    margin: 0 !important;
+    padding: 1.2mm !important;
+    transform: rotate(-90deg) !important;
+    transform-origin: top left !important;
+    box-shadow: none !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  .tray-card-copy,
+  .tray-card-copy * {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
   }
 
   @page {
-    size: 54mm 86mm;
+    size: A4 portrait;
     margin: 0;
   }
-}
-
-
-/* v1.5.1: ลายน้ำสมมาตรทับบนรูปพนักงาน เฉพาะหน้าขาว */
-.photo-box {
-  position: relative;
-}
-
-.photo-watermark {
-  display: none;
-}
-
-.front-white .photo-watermark {
-  position: absolute;
-  z-index: 4;
-  display: block;
-  left: 50%;
-  top: 50%;
-  width: 30mm;
-  height: 37mm;
-  transform: translate(-50%, -50%);
-  border: 1.8mm solid rgba(92, 108, 220, 0.18);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.front-yellow .photo-watermark {
-  display: none;
 }

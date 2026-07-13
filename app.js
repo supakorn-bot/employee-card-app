@@ -33,7 +33,12 @@ const elements = {
   formModeText: document.getElementById("formModeText"),
   editingBadge: document.getElementById("editingBadge"),
   cancelEditButton: document.getElementById("cancelEditButton"),
-  saveButton: document.getElementById("saveButton")
+  saveButton: document.getElementById("saveButton"),
+  printTopEmployee: document.getElementById("printTopEmployee"),
+  printBottomEmployee: document.getElementById("printBottomEmployee"),
+  trayPrintSheet: document.getElementById("trayPrintSheet"),
+  trayTopSlot: document.getElementById("trayTopSlot"),
+  trayBottomSlot: document.getElementById("trayBottomSlot")
 };
 
 let employeePhotoData = "";
@@ -195,6 +200,7 @@ async function loadEmployees(keyword = "") {
 
     employeesCache = Array.isArray(result.data) ? result.data : [];
     renderEmployeeTable(employeesCache);
+    refreshPrintEmployeeSelectors();
     updateDashboard(
       Number(result.total ?? employeesCache.length),
       employeesCache
@@ -392,6 +398,163 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+
+function getCurrentFormEmployee() {
+  return {
+    id: elements.recordId.value || "__current__",
+    employeeId: elements.empId.value.trim(),
+    thaiName: elements.thaiName.value.trim(),
+    engName: elements.engName.value.trim(),
+    position: elements.position.value.trim(),
+    department: elements.department.value.trim(),
+    templateType: elements.templateType.value || "front-white",
+    photoUrl: currentPhotoUrl || employeePhotoData || "",
+    status: elements.status.value || "ACTIVE"
+  };
+}
+
+function refreshPrintEmployeeSelectors() {
+  const selectors = [
+    elements.printTopEmployee,
+    elements.printBottomEmployee
+  ];
+
+  const oldValues = selectors.map((selector) => selector.value);
+
+  selectors.forEach((selector, selectorIndex) => {
+    selector.innerHTML =
+      '<option value="__current__">ข้อมูลที่อยู่ในฟอร์มตอนนี้</option>';
+
+    employeesCache.forEach((employee, index) => {
+      const option = document.createElement("option");
+      option.value = employee.id || `ROW-${index}`;
+      option.textContent =
+        `${employee.employeeId || "-"} | ${employee.thaiName || "ไม่ระบุชื่อ"}`;
+      selector.appendChild(option);
+    });
+
+    const oldValue = oldValues[selectorIndex];
+
+    if ([...selector.options].some((option) => option.value === oldValue)) {
+      selector.value = oldValue;
+    }
+  });
+
+  if (
+    elements.printTopEmployee.value === "__current__" &&
+    employeesCache.length >= 1
+  ) {
+    elements.printTopEmployee.value = employeesCache[0].id;
+  }
+
+  if (
+    elements.printBottomEmployee.value === "__current__" &&
+    employeesCache.length >= 2
+  ) {
+    elements.printBottomEmployee.value = employeesCache[1].id;
+  } else if (
+    elements.printBottomEmployee.value === "__current__" &&
+    employeesCache.length === 1
+  ) {
+    elements.printBottomEmployee.value = employeesCache[0].id;
+  }
+}
+
+function getEmployeeForPrint(selectedValue) {
+  if (selectedValue === "__current__") {
+    return getCurrentFormEmployee();
+  }
+
+  return (
+    employeesCache.find((employee) => employee.id === selectedValue) ||
+    getCurrentFormEmployee()
+  );
+}
+
+function buildPrintableCard(employee) {
+  const clone = elements.card.cloneNode(true);
+
+  clone.removeAttribute("id");
+  clone.className = `card ${employee.templateType || "front-white"} tray-card-copy`;
+
+  clone.querySelectorAll("[id]").forEach((node) => {
+    node.removeAttribute("id");
+  });
+
+  const thaiNameNode = clone.querySelector(".thai-name");
+  const engNameNode = clone.querySelector(".eng-name");
+  const positionNode = clone.querySelector(".position");
+  const departmentNode = clone.querySelector(".department");
+  const employeeIdNode = clone.querySelector(".id-line span");
+  const photoNode = clone.querySelector(".photo-box img");
+
+  if (thaiNameNode) thaiNameNode.textContent = employee.thaiName || "ชื่อพนักงาน";
+  if (engNameNode) engNameNode.textContent = employee.engName || "Employee Name";
+  if (positionNode) positionNode.textContent = employee.position || "ตำแหน่ง";
+  if (departmentNode) departmentNode.textContent = employee.department || "แผนก";
+  if (employeeIdNode) employeeIdNode.textContent = employee.employeeId || "-";
+
+  const photoUrl = normalizePhotoUrl(employee.photoUrl || "");
+
+  if (photoNode && photoUrl) {
+    photoNode.src = photoUrl;
+  } else if (photoNode) {
+    photoNode.removeAttribute("src");
+  }
+
+  return clone;
+}
+
+function waitForImages(container) {
+  const images = [...container.querySelectorAll("img")];
+
+  return Promise.all(
+    images.map((image) => {
+      if (image.complete) return Promise.resolve();
+
+      return new Promise((resolve) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    })
+  );
+}
+
+async function printTwoCardsPdf() {
+  const topEmployee = getEmployeeForPrint(
+    elements.printTopEmployee.value
+  );
+
+  const bottomEmployee = getEmployeeForPrint(
+    elements.printBottomEmployee.value
+  );
+
+  if (!topEmployee.employeeId || !bottomEmployee.employeeId) {
+    alert("กรุณาเลือกหรือกรอกข้อมูลพนักงานให้ครบทั้ง 2 ช่อง");
+    return;
+  }
+
+  elements.trayTopSlot.innerHTML = "";
+  elements.trayBottomSlot.innerHTML = "";
+
+  elements.trayTopSlot.appendChild(buildPrintableCard(topEmployee));
+  elements.trayBottomSlot.appendChild(buildPrintableCard(bottomEmployee));
+
+  elements.trayPrintSheet.setAttribute("aria-hidden", "false");
+
+  await waitForImages(elements.trayPrintSheet);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      window.print();
+    });
+  });
+}
+
+window.addEventListener("afterprint", () => {
+  elements.trayPrintSheet.setAttribute("aria-hidden", "true");
+});
+
 elements.photoInput.addEventListener("change", () => {
   const file = elements.photoInput.files[0];
 
@@ -446,10 +609,7 @@ document
 
 document
   .getElementById("printButton")
-  .addEventListener("click", () => {
-    updateCard();
-    window.print();
-  });
+  .addEventListener("click", printTwoCardsPdf);
 
 document
   .getElementById("searchButton")

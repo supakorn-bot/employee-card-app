@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employee Card App v1.5.1</title>
-  <link rel="stylesheet" href="./style.css?v=1.5.1" />
+  <title>Employee Card App v1.5.2</title>
+  <link rel="stylesheet" href="./style.css?v=1.5.2" />
 </head>
 <body>
   <header class="topbar">
@@ -12,7 +12,7 @@
       <h1>Employee Card App</h1>
       <p>ระบบจัดทำ ค้นหา แก้ไข และพิมพ์บัตรพนักงาน</p>
     </div>
-    <span class="version">v1.5.1</span>
+    <span class="version">v1.5.2</span>
   </header>
 
   <main class="app-shell">
@@ -138,19 +138,34 @@
           </label>
         </div>
 
-        <label class="full-width tray-position-label">
-          ตำแหน่งบัตรบนถาด
-          <select id="trayPosition">
-            <option value="top">ช่องบน</option>
-            <option value="bottom">ช่องล่าง</option>
-            <option value="both">ทั้งสองช่อง</option>
-          </select>
-        </label>
+        <div class="print-pair-panel">
+          <h3>เลือกพนักงานสำหรับพิมพ์ 2 ใบ</h3>
+
+          <div class="print-pair-grid">
+            <label>
+              ช่องบนของถาด
+              <select id="printTopEmployee">
+                <option value="__current__">ข้อมูลที่อยู่ในฟอร์มตอนนี้</option>
+              </select>
+            </label>
+
+            <label>
+              ช่องล่างของถาด
+              <select id="printBottomEmployee">
+                <option value="__current__">ข้อมูลที่อยู่ในฟอร์มตอนนี้</option>
+              </select>
+            </label>
+          </div>
+
+          <p class="print-pair-note">
+            ระบบจะจัดบัตร 2 ใบบนกระดาษ A4 ตามตำแหน่งไฟล์ 1112.pdf
+          </p>
+        </div>
 
         <div class="button-grid">
           <button id="previewButton" type="button">ดูตัวอย่าง</button>
           <button id="saveButton" type="button" class="save-button">บันทึก Google Sheet</button>
-          <button id="printButton" type="button" class="print-button">พิมพ์ / บันทึก PDF</button>
+          <button id="printButton" type="button" class="print-button">พิมพ์ 2 ใบ / บันทึก PDF</button>
           <button id="cancelEditButton" type="button" class="secondary hidden">ยกเลิกการแก้ไข</button>
         </div>
 
@@ -195,7 +210,7 @@
     <div id="trayBottomSlot" class="tray-slot tray-slot-bottom"></div>
   </section>
 
-  <script src="./app.js?v=1.5.1"></script>
+  <script src="./app.js?v=1.5.2"></script>
 
 </body>
 </html>
