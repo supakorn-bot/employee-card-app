@@ -296,54 +296,17 @@ label {
   background: #000;
 }
 
-.brand-logo {
-  position: relative;
-  z-index: 3;
-  display: block;
+.logo {
   width: 19mm;
   height: 19mm;
   margin: 0.5mm auto 2.2mm;
-  object-fit: cover;
+  border: 0.8mm solid #001b9b;
   border-radius: 50%;
-}
-
-.white-watermark {
-  display: none;
-}
-
-.front-white .white-watermark {
-  position: absolute;
-  z-index: 0;
-  display: block;
-  inset: 0;
-  pointer-events: none;
-}
-
-.front-white .white-watermark::before,
-.front-white .white-watermark::after {
-  content: "";
-  position: absolute;
-  top: 23mm;
-  width: 18mm;
-  height: 46mm;
-  border: 2.2mm solid rgba(88, 105, 220, 0.18);
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-}
-
-.front-white .white-watermark::before {
-  left: -5.5mm;
-  transform: rotate(-8deg);
-}
-
-.front-white .white-watermark::after {
-  right: -6.2mm;
-  transform: rotate(10deg);
-}
-
-.front-yellow .white-watermark {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #001b9b;
+  font: 700 22pt Georgia, serif;
 }
 
 .company-th {
@@ -490,79 +453,66 @@ label {
   }
 }
 
-
-.tray-position-label {
-  display: block;
-  margin-top: 14px;
-}
-
-.tray-print-sheet {
-  display: none;
-}
-
 @media print {
-  html,
   body {
-    width: 210mm;
-    height: 297mm;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #fff !important;
-  }
-
-  body > *:not(.tray-print-sheet) {
-    display: none !important;
-  }
-
-  .tray-print-sheet {
-    position: relative;
-    display: block !important;
-    width: 210mm;
-    height: 297mm;
     margin: 0;
-    padding: 0;
-    overflow: hidden;
     background: #fff;
   }
 
-  .tray-slot {
-    position: absolute;
-    left: 31mm;
-    width: 86mm;
-    height: 54mm;
-    overflow: visible;
+  .topbar,
+  .dashboard,
+  .search-panel,
+  .panel,
+  .print-note {
+    display: none !important;
   }
 
-  .tray-slot-top {
-    top: 9mm;
+  .app-shell,
+  .workspace,
+  .preview-area {
+    display: block;
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
   }
 
-  .tray-slot-bottom {
-    top: 70.5mm;
-  }
-
-  .tray-card-copy {
-    position: absolute;
-    left: 0;
-    top: 54mm;
-    width: 54mm !important;
-    height: 86mm !important;
-    margin: 0 !important;
-    padding: 1.2mm !important;
-    transform: rotate(-90deg) !important;
-    transform-origin: top left !important;
-    box-shadow: none !important;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-
-  .tray-card-copy .inner-border {
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
+  .card {
+    transform: none;
+    box-shadow: none;
+    margin: 0;
   }
 
   @page {
-    size: A4 portrait;
+    size: 54mm 86mm;
     margin: 0;
   }
+}
+
+
+/* v1.5.1: ลายน้ำสมมาตรทับบนรูปพนักงาน เฉพาะหน้าขาว */
+.photo-box {
+  position: relative;
+}
+
+.photo-watermark {
+  display: none;
+}
+
+.front-white .photo-watermark {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  left: 50%;
+  top: 50%;
+  width: 30mm;
+  height: 37mm;
+  transform: translate(-50%, -50%);
+  border: 1.8mm solid rgba(92, 108, 220, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.front-yellow .photo-watermark {
+  display: none;
 }
