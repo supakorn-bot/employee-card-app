@@ -562,3 +562,100 @@ label {
     margin: 0;
   }
 }
+
+
+/* v1.5.3: แก้ Preview ว่าง และกำหนดรูปแบบหน้าบัตรให้ครบ */
+#frontContent {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-logo {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 19mm;
+  height: 19mm;
+  margin: 0.5mm auto 2.2mm;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.white-watermark {
+  display: none;
+}
+
+.front-white .white-watermark {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  inset: 0;
+  pointer-events: none;
+}
+
+.front-white .white-watermark::before,
+.front-white .white-watermark::after {
+  content: "";
+  position: absolute;
+  top: 23mm;
+  width: 18mm;
+  height: 46mm;
+  border: 2.2mm solid rgba(88, 105, 220, 0.18);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+}
+
+.front-white .white-watermark::before {
+  left: -5.5mm;
+  transform: rotate(-8deg);
+}
+
+.front-white .white-watermark::after {
+  right: -6.2mm;
+  transform: rotate(10deg);
+}
+
+.front-yellow .white-watermark {
+  display: none;
+}
+
+.photo-box {
+  position: relative;
+  z-index: 2;
+}
+
+.photo-watermark {
+  display: none;
+}
+
+.front-white .photo-watermark {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  left: 50%;
+  top: 50%;
+  width: 29mm;
+  height: 36mm;
+  transform: translate(-50%, -50%);
+  border: 1.6mm solid rgba(92, 108, 220, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.front-yellow .photo-watermark {
+  display: none;
+}
+
+.company-th,
+.company-en,
+.thai-name,
+.eng-name,
+.position,
+.department,
+.id-line {
+  position: relative;
+  z-index: 3;
+}

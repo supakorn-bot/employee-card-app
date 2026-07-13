@@ -47,8 +47,14 @@ let employeesCache = [];
 
 
 
+function normalizeTemplateType(value) {
+  return value === "front-yellow" ? "front-yellow" : "front-white";
+}
+
 function updateCard() {
-  const type = elements.templateType.value;
+  const type = normalizeTemplateType(elements.templateType.value);
+
+  elements.templateType.value = type;
   elements.card.className = `card ${type}`;
 
   elements.showThaiName.textContent =
@@ -62,12 +68,8 @@ function updateCard() {
   elements.showEmpId.textContent =
     elements.empId.value.trim() || "-";
 
-  const isFront = type.startsWith("front");
-  elements.frontContent.classList.toggle("hidden", !isFront);
-  elements.backContent.classList.toggle(
-    "hidden",
-    isFront || type === "back-black"
-  );
+  elements.frontContent.classList.remove("hidden");
+  elements.backContent.classList.add("hidden");
 }
 
 function setStatus(target, message, type = "") {
@@ -315,7 +317,7 @@ function fillForm(employee) {
   elements.engName.value = employee.engName || "";
   elements.position.value = employee.position || "";
   elements.department.value = employee.department || "";
-  elements.templateType.value = employee.templateType || "front-white";
+  elements.templateType.value = normalizeTemplateType(employee.templateType);
   elements.issueDate.value = normalizeDate(employee.issueDate);
   elements.expiryDate.value = normalizeDate(employee.expiryDate);
   elements.status.value = employee.status || "ACTIVE";
@@ -475,7 +477,7 @@ function buildPrintableCard(employee) {
   const clone = elements.card.cloneNode(true);
 
   clone.removeAttribute("id");
-  clone.className = `card ${employee.templateType || "front-white"} tray-card-copy`;
+  clone.className = `card ${normalizeTemplateType(employee.templateType)} tray-card-copy`;
 
   clone.querySelectorAll("[id]").forEach((node) => {
     node.removeAttribute("id");
