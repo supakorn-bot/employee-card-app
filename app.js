@@ -33,7 +33,11 @@ const elements = {
   formModeText: document.getElementById("formModeText"),
   editingBadge: document.getElementById("editingBadge"),
   cancelEditButton: document.getElementById("cancelEditButton"),
-  saveButton: document.getElementById("saveButton")
+  saveButton: document.getElementById("saveButton"),
+  trayPosition: document.getElementById("trayPosition"),
+  trayPrintSheet: document.getElementById("trayPrintSheet"),
+  trayTopSlot: document.getElementById("trayTopSlot"),
+  trayBottomSlot: document.getElementById("trayBottomSlot")
 };
 
 let employeePhotoData = "";
@@ -392,6 +396,60 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+
+function createPrintableCardClone() {
+  const clone = elements.card.cloneNode(true);
+
+  clone.removeAttribute("id");
+  clone.classList.add("tray-card-copy");
+
+  clone.querySelectorAll("[id]").forEach((node) => {
+    node.removeAttribute("id");
+  });
+
+  const sourcePhoto = elements.photoPreview;
+  const clonePhoto = clone.querySelector(".photo-box img");
+
+  if (clonePhoto && sourcePhoto && sourcePhoto.src) {
+    clonePhoto.src = sourcePhoto.src;
+  }
+
+  return clone;
+}
+
+function prepareTrayPrint() {
+  updateCard();
+
+  elements.trayTopSlot.innerHTML = "";
+  elements.trayBottomSlot.innerHTML = "";
+
+  const position = elements.trayPosition.value;
+
+  if (position === "top" || position === "both") {
+    elements.trayTopSlot.appendChild(createPrintableCardClone());
+  }
+
+  if (position === "bottom" || position === "both") {
+    elements.trayBottomSlot.appendChild(createPrintableCardClone());
+  }
+
+  elements.trayPrintSheet.setAttribute("aria-hidden", "false");
+}
+
+function printTrayPdf() {
+  prepareTrayPrint();
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      window.print();
+    });
+  });
+}
+
+window.addEventListener("afterprint", () => {
+  elements.trayPrintSheet.setAttribute("aria-hidden", "true");
+});
+
 elements.photoInput.addEventListener("change", () => {
   const file = elements.photoInput.files[0];
 
@@ -446,10 +504,7 @@ document
 
 document
   .getElementById("printButton")
-  .addEventListener("click", () => {
-    updateCard();
-    window.print();
-  });
+  .addEventListener("click", printTrayPdf);
 
 document
   .getElementById("searchButton")

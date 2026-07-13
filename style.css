@@ -490,50 +490,79 @@ label {
   }
 }
 
+
+.tray-position-label {
+  display: block;
+  margin-top: 14px;
+}
+
+.tray-print-sheet {
+  display: none;
+}
+
 @media print {
+  html,
   body {
-    margin: 0;
-    background: #fff;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
   }
 
-  .topbar,
-  .dashboard,
-  .search-panel,
-  .panel,
-  .print-note {
+  body > *:not(.tray-print-sheet) {
     display: none !important;
   }
 
-  .app-shell,
-  .workspace,
-  .preview-area {
-    display: block;
-    width: auto;
-    min-height: auto;
+  .tray-print-sheet {
+    position: relative;
+    display: block !important;
+    width: 210mm;
+    height: 297mm;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    background: #fff;
   }
 
-  .card {
-    transform: none;
-    box-shadow: none;
-    margin: 0;
+  .tray-slot {
+    position: absolute;
+    left: 31mm;
+    width: 86mm;
+    height: 54mm;
+    overflow: visible;
+  }
+
+  .tray-slot-top {
+    top: 9mm;
+  }
+
+  .tray-slot-bottom {
+    top: 70.5mm;
+  }
+
+  .tray-card-copy {
+    position: absolute;
+    left: 0;
+    top: 54mm;
+    width: 54mm !important;
+    height: 86mm !important;
+    margin: 0 !important;
+    padding: 1.2mm !important;
+    transform: rotate(-90deg) !important;
+    transform-origin: top left !important;
+    box-shadow: none !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .tray-card-copy .inner-border {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   @page {
-    size: 54mm 86mm;
+    size: A4 portrait;
     margin: 0;
   }
-}
-
-.company-th,
-.company-en,
-.photo-box,
-.thai-name,
-.eng-name,
-.position,
-.department,
-.id-line {
-  position: relative;
-  z-index: 2;
 }
