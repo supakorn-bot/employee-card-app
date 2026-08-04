@@ -1,216 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employee Card App v1.5.3</title>
-  <link rel="stylesheet" href="./style.css?v=1.5.3" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=https://pse-smart-hub.lionsoft1976.workers.dev/#systems">
+  <title>เข้าสู่ระบบผ่าน PSE Smart Hub</title>
+
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+      color: #ffffff;
+      background: linear-gradient(145deg, #061633, #0b459f);
+    }
+
+    main {
+      width: min(100%, 480px);
+      padding: 38px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 20px;
+      text-align: center;
+      background: rgba(255,255,255,.1);
+      box-shadow: 0 25px 60px rgba(0,0,0,.25);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+    }
+
+    p {
+      color: #c9d9f1;
+      line-height: 1.7;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: #09214d;
+      background: #efca72;
+      text-decoration: none;
+      font-weight: 800;
+    }
+  </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <div>
-      <h1>Employee Card App</h1>
-      <p>ระบบจัดทำ ค้นหา แก้ไข และพิมพ์บัตรพนักงาน</p>
-    </div>
-    <span class="version">v1.5.3</span>
-  </header>
+  <main>
+    <h1>PSE Smart Hub</h1>
 
-  <main class="app-shell">
-    <section class="dashboard">
-      <article class="stat-card">
-        <span>พนักงานทั้งหมด</span>
-        <strong id="totalEmployees">0</strong>
-      </article>
-      <article class="stat-card">
-        <span>สถานะ ACTIVE</span>
-        <strong id="activeEmployees">0</strong>
-      </article>
-      <article class="stat-card">
-        <span>ผลการค้นหา</span>
-        <strong id="resultCount">0</strong>
-      </article>
-    </section>
+    <p>
+      ระบบบัตรพนักงานเข้าใช้งานผ่าน PSE Smart Hub เท่านั้น
+      <br>
+      กำลังนำคุณไปยังระบบของคุณ...
+    </p>
 
-    <section class="search-panel">
-      <div class="search-row">
-        <input id="searchInput" type="search"
-          placeholder="ค้นหาจากรหัส ชื่อ ตำแหน่ง หรือแผนก" />
-        <button id="searchButton" type="button">ค้นหา</button>
-        <button id="showAllButton" type="button" class="secondary">แสดงทั้งหมด</button>
-        <button id="newButton" type="button" class="dark">สร้างรายการใหม่</button>
-      </div>
-
-      <div id="searchStatus" class="status-text"></div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>รหัสพนักงาน</th>
-              <th>ชื่อไทย</th>
-              <th>ตำแหน่ง</th>
-              <th>แผนก</th>
-              <th>สถานะ</th>
-              <th>จัดการ</th>
-            </tr>
-          </thead>
-          <tbody id="employeeTableBody">
-            <tr>
-              <td colspan="6" class="empty-cell">กำลังโหลดข้อมูล...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="workspace">
-      <section class="panel">
-        <div class="panel-heading">
-          <div>
-            <h2>ข้อมูลพนักงาน</h2>
-            <p id="formModeText">โหมดสร้างรายการใหม่</p>
-          </div>
-          <span id="editingBadge" class="badge hidden">กำลังแก้ไข</span>
-        </div>
-
-        <input id="recordId" type="hidden" />
-
-        <div class="form-grid">
-          <label>
-            รูปแบบบัตร
-            <select id="templateType">
-              <option value="front-white">หน้าบัตร - ขาว</option>
-              <option value="front-yellow">หน้าบัตร - เหลือง</option>
-            </select>
-          </label>
-
-          <label>
-            รหัสพนักงาน *
-            <input id="empId" type="text" placeholder="เช่น 20519" />
-          </label>
-
-          <label>
-            ชื่อภาษาไทย *
-            <input id="thaiName" type="text" placeholder="ชื่อ-นามสกุล" />
-          </label>
-
-          <label>
-            ชื่อภาษาอังกฤษ
-            <input id="engName" type="text" placeholder="Employee name" />
-          </label>
-
-          <label>
-            ตำแหน่ง
-            <input id="position" type="text" placeholder="ตำแหน่ง" />
-          </label>
-
-          <label>
-            แผนก
-            <input id="department" type="text" placeholder="แผนก" />
-          </label>
-
-          <label>
-            วันที่ออกบัตร
-            <input id="issueDate" type="date" />
-          </label>
-
-          <label>
-            วันหมดอายุ
-            <input id="expiryDate" type="date" />
-          </label>
-
-          <label>
-            สถานะ
-            <select id="status">
-              <option value="ACTIVE">ACTIVE</option>
-              <option value="INACTIVE">INACTIVE</option>
-            </select>
-          </label>
-
-          <label class="full-width">
-            หมายเหตุ
-            <textarea id="note" rows="2" placeholder="หมายเหตุเพิ่มเติม"></textarea>
-          </label>
-
-          <label class="full-width">
-            รูปพนักงาน
-            <input id="photoInput" type="file" accept="image/*" />
-          </label>
-        </div>
-
-        <div class="print-pair-panel">
-          <h3>เลือกพนักงานสำหรับพิมพ์ 2 ใบ</h3>
-
-          <div class="print-pair-grid">
-            <label>
-              ช่องบนของถาด
-              <select id="printTopEmployee">
-                <option value="__current__">ข้อมูลที่อยู่ในฟอร์มตอนนี้</option>
-              </select>
-            </label>
-
-            <label>
-              ช่องล่างของถาด
-              <select id="printBottomEmployee">
-                <option value="__current__">ข้อมูลที่อยู่ในฟอร์มตอนนี้</option>
-              </select>
-            </label>
-          </div>
-
-          <p class="print-pair-note">
-            ระบบจะจัดบัตร 2 ใบบนกระดาษ A4 ตามตำแหน่งไฟล์ 1112.pdf
-          </p>
-        </div>
-
-        <div class="button-grid">
-          <button id="previewButton" type="button">ดูตัวอย่าง</button>
-          <button id="saveButton" type="button" class="save-button">บันทึก Google Sheet</button>
-          <button id="printButton" type="button" class="print-button">พิมพ์ 2 ใบ / บันทึก PDF</button>
-          <button id="cancelEditButton" type="button" class="secondary hidden">ยกเลิกการแก้ไข</button>
-        </div>
-
-        <div id="saveStatus" class="save-status"></div>
-      </section>
-
-      <section class="preview-area">
-        <div id="card" class="card front-white">
-          <div class="inner-border">
-            <div id="frontContent">
-              <div class="white-watermark" aria-hidden="true"></div>
-              <img class="brand-logo" src="./assets/logo-pse.jpg" alt="PSE Logo" />
-              <div class="company-th">บริษัท ผดุงศิลป์วิศวการ จำกัด</div>
-              <div class="company-en">PADUNGSILPA ENGINEERING CO.,LTD.</div>
-
-              <div class="photo-box">
-                <img id="photoPreview" alt="รูปพนักงาน" />
-                <span class="photo-watermark" aria-hidden="true"></span>
-              </div>
-
-              <div id="showThaiName" class="thai-name">ชื่อพนักงาน</div>
-              <div id="showEngName" class="eng-name">Employee Name</div>
-              <div id="showPosition" class="position">ตำแหน่ง</div>
-              <div id="showDepartment" class="department">แผนก</div>
-              <div class="id-line">ID. <span id="showEmpId">-</span></div>
-            </div>
-
-            <div id="backContent" class="hidden"></div>
-          </div>
-        </div>
-
-        <p class="print-note">
-          ขนาดพิมพ์จริง 54 × 86 mm — ทดลองบนกระดาษก่อนใส่ถาด PVC
-        </p>
-      </section>
-    </section>
+    <a href="https://pse-smart-hub.lionsoft1976.workers.dev/#systems">
+      เข้าสู่ PSE Smart Hub
+    </a>
   </main>
 
-
-  <section id="trayPrintSheet" class="tray-print-sheet" aria-hidden="true">
-    <div id="trayTopSlot" class="tray-slot tray-slot-top"></div>
-    <div id="trayBottomSlot" class="tray-slot tray-slot-bottom"></div>
-  </section>
-
-  <script src="./app.js?v=1.5.3"></script>
-
+  <script>
+    window.location.replace(
+      "https://pse-smart-hub.lionsoft1976.workers.dev/#systems"
+    );
+  </script>
 </body>
 </html>
