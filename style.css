@@ -660,56 +660,42 @@ label {
   z-index: 3;
 }
 
-/* === v1.5.9 LEGACY SINGLE PEEK WATERMARK START === */
+/* === v1.6.2 LOGO PNG WATERMARK START === */
 /*
-  Legacy card effect, single-ring version:
-  - one large oval behind the employee photo
-  - only the left/right sides are visible
-  - arcs "peek" outside the photo
-  - no second inner ring
-  - text/photo layout stays in the original positions
+  Use the provided PSE logo file as the watermark.
+  - transparent blue logo
+  - centered behind company text and employee photo
+  - text and logo stay readable
 */
-
 .front-white .white-watermark {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   display: block;
   pointer-events: none;
 }
 
-/* Single centered oval: creates one arc on each side */
 .front-white .white-watermark::before {
   content: "";
   position: absolute;
   left: 50%;
-  top: 29.8mm;
-  width: 33.5mm;
-  height: 40.5mm;
+  top: 18mm;
+  width: 30mm;
+  height: 30mm;
   transform: translateX(-50%);
-  border: 1.75mm solid rgba(92, 151, 203, 0.18);
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  border-radius: 50%;
+  background: url("./assets/pse-logo-watermark.png") center / contain no-repeat;
   pointer-events: none;
 }
 
-/* Remove second ring entirely */
 .front-white .white-watermark::after {
   content: none !important;
+  display: none !important;
 }
 
-/* Do not draw the old oval inside the photo box */
 .front-white .photo-watermark {
   display: none !important;
 }
 
-.front-yellow .white-watermark,
-.front-yellow .photo-watermark {
-  display: none !important;
-}
-
-/* Keep actual card content above the watermark */
 .front-white .brand-logo,
 .front-white .company-th,
 .front-white .company-en,
@@ -723,26 +709,8 @@ label {
   z-index: 2;
 }
 
-/* Restore original card spacing explicitly */
-.front-white .photo-box {
-  margin: 1.7mm auto 1mm;
+.front-yellow .white-watermark,
+.front-yellow .photo-watermark {
+  display: none !important;
 }
-
-.front-white .thai-name,
-.front-white .eng-name,
-.front-white .position,
-.front-white .department,
-.front-white .id-line {
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
-  background: transparent;
-  text-shadow: none;
-}
-
-.front-white .thai-name,
-.front-white .eng-name {
-  display: block;
-}
-/* === v1.5.9 LEGACY SINGLE PEEK WATERMARK END === */
+/* === v1.6.2 LOGO PNG WATERMARK END === */
