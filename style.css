@@ -660,13 +660,13 @@ label {
   z-index: 3;
 }
 
-/* === v1.5.8 LEGACY PEEK WATERMARK START === */
+/* === v1.5.9 LEGACY SINGLE PEEK WATERMARK START === */
 /*
-  Recreate the legacy-card watermark effect:
+  Legacy card effect, single-ring version:
   - one large oval behind the employee photo
   - only the left/right sides are visible
-  - arcs extend ("peek") outside the photo
-  - perfectly symmetric
+  - arcs "peek" outside the photo
+  - no second inner ring
   - text/photo layout stays in the original positions
 */
 
@@ -678,36 +678,25 @@ label {
   pointer-events: none;
 }
 
-/* Outer oval: visible only at left/right sides */
+/* Single centered oval: creates one arc on each side */
 .front-white .white-watermark::before {
   content: "";
   position: absolute;
   left: 50%;
-  top: 29.6mm;
-  width: 35mm;
-  height: 42mm;
+  top: 29.8mm;
+  width: 33.5mm;
+  height: 40.5mm;
   transform: translateX(-50%);
-  border: 1.85mm solid rgba(92, 151, 203, 0.20);
+  border: 1.75mm solid rgba(92, 151, 203, 0.18);
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-radius: 50%;
   pointer-events: none;
 }
 
-/* Inner oval: second soft arc like the older printed card */
+/* Remove second ring entirely */
 .front-white .white-watermark::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 31.3mm;
-  width: 30.5mm;
-  height: 38.5mm;
-  transform: translateX(-50%);
-  border: 1.25mm solid rgba(92, 151, 203, 0.13);
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  pointer-events: none;
+  content: none !important;
 }
 
 /* Do not draw the old oval inside the photo box */
@@ -756,4 +745,4 @@ label {
 .front-white .eng-name {
   display: block;
 }
-/* === v1.5.8 LEGACY PEEK WATERMARK END === */
+/* === v1.5.9 LEGACY SINGLE PEEK WATERMARK END === */
