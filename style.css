@@ -660,32 +660,34 @@ label {
   z-index: 3;
 }
 
-/* === v1.6.4 LARGE FADED LOGO WATERMARK START === */
+/* === v1.6.6 TALL SOFT LOGO WATERMARK START === */
 /*
-  One large single watermark from the provided PNG.
-  - larger than v1.6.3
-  - lighter / more transparent
-  - centered behind all content
-  - no extra rings
+  Taller and slightly stretched watermark.
+  - same single logo PNG
+  - taller than v1.6.5
+  - softer / faded
+  - clipped safely inside the card
 */
 .front-white .white-watermark {
   position: absolute;
-  inset: 0;
+  inset: 2.2mm 2.3mm 2.2mm 2.3mm;
   z-index: 1;
   display: block;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .front-white .white-watermark::before {
   content: "";
   position: absolute;
   left: 50%;
-  top: 15.5mm;
-  width: 50mm;
-  height: 50mm;
+  top: 11.8mm;
+  width: 52mm;
+  height: 62mm;
   transform: translateX(-50%);
-  background: url("./assets/pse-logo-watermark-large.png") center / contain no-repeat;
+  background: url("./assets/pse-logo-watermark-large.png") center / 100% 100% no-repeat;
   pointer-events: none;
+  opacity: 0.92;
 }
 
 .front-white .white-watermark::after {
@@ -714,4 +716,4 @@ label {
 .front-yellow .photo-watermark {
   display: none !important;
 }
-/* === v1.6.4 LARGE FADED LOGO WATERMARK END === */
+/* === v1.6.6 TALL SOFT LOGO WATERMARK END === */
