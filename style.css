@@ -660,7 +660,7 @@ label {
   z-index: 3;
 }
 
-/* === v1.5.6 LEGACY WATERMARK START === */
+/* === v1.5.7 LEGACY WATERMARK START === */
 .front-white .white-watermark {
   position: absolute;
   inset: 0;
@@ -706,13 +706,14 @@ label {
   display: none !important;
 }
 
-/* Pull text upward slightly so it "comes out" from the photo area like the legacy card */
+/* Pull the photo/text relationship closer like the legacy card */
 .front-white .photo-box {
   position: relative;
   z-index: 2;
-  margin: 1.7mm auto -0.9mm;
+  margin: 1.7mm auto -2.8mm;
 }
 
+/* Keep card content above watermark */
 .front-white .brand-logo,
 .front-white .company-th,
 .front-white .company-en,
@@ -723,15 +724,15 @@ label {
   z-index: 3;
 }
 
-/* Main names sit higher and overlap the bottom photo area slightly */
+/* Make the employee names come out from the photo area */
 .front-white .thai-name {
   position: relative;
-  z-index: 4;
-  margin-top: -0.1mm;
-  display: inline-block;
-  padding: 0 1.4mm;
-  line-height: 1.02;
-  background: rgba(255, 255, 255, 0.90);
+  z-index: 5;
+  display: table;
+  margin: -0.7mm auto 0;
+  padding: 0 1.5mm;
+  line-height: 1.00;
+  background: rgba(255, 255, 255, 0.94);
   text-shadow:
     0 0 1.2mm rgba(255, 255, 255, 0.98),
     0 0 0.6mm rgba(255, 255, 255, 0.98);
@@ -739,12 +740,12 @@ label {
 
 .front-white .eng-name {
   position: relative;
-  z-index: 4;
-  margin-top: -0.15mm;
-  display: inline-block;
-  padding: 0 1.2mm;
-  line-height: 1.02;
-  background: rgba(255, 255, 255, 0.90);
+  z-index: 5;
+  display: table;
+  margin: -0.2mm auto 0.1mm;
+  padding: 0 1.4mm;
+  line-height: 1.00;
+  background: rgba(255, 255, 255, 0.94);
   text-shadow:
     0 0 1.2mm rgba(255, 255, 255, 0.98),
     0 0 0.6mm rgba(255, 255, 255, 0.98);
@@ -753,11 +754,13 @@ label {
 .front-white .position,
 .front-white .department,
 .front-white .id-line {
-  display: inline-block;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0 0.8mm;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.84);
   text-shadow:
     0 0 1.2mm rgba(255, 255, 255, 0.98),
     0 0 0.6mm rgba(255, 255, 255, 0.98);
 }
-/* === v1.5.6 LEGACY WATERMARK END === */
+/* === v1.5.7 LEGACY WATERMARK END === */
