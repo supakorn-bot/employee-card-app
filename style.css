@@ -660,12 +660,13 @@ label {
   z-index: 3;
 }
 
-/* === v1.6.2 LOGO PNG WATERMARK START === */
+/* === v1.6.3 LARGE SINGLE LOGO WATERMARK START === */
 /*
-  Use the provided PSE logo file as the watermark.
-  - transparent blue logo
-  - centered behind company text and employee photo
-  - text and logo stay readable
+  One large single watermark from the provided PNG.
+  - one centered logo only
+  - pale transparent blue
+  - behind all content
+  - no extra rings
 */
 .front-white .white-watermark {
   position: absolute;
@@ -679,11 +680,11 @@ label {
   content: "";
   position: absolute;
   left: 50%;
-  top: 18mm;
-  width: 30mm;
-  height: 30mm;
+  top: 18.5mm;
+  width: 40mm;
+  height: 40mm;
   transform: translateX(-50%);
-  background: url("./assets/pse-logo-watermark.png") center / contain no-repeat;
+  background: url("./assets/pse-logo-watermark-large.png") center / contain no-repeat;
   pointer-events: none;
 }
 
@@ -713,4 +714,4 @@ label {
 .front-yellow .photo-watermark {
   display: none !important;
 }
-/* === v1.6.2 LOGO PNG WATERMARK END === */
+/* === v1.6.3 LARGE SINGLE LOGO WATERMARK END === */
