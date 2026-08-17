@@ -660,74 +660,75 @@ label {
   z-index: 3;
 }
 
-/* === v1.5.9 LEGACY SINGLE PEEK WATERMARK START === */
+/* === v1.6.0 PHOTO PEEK WATERMARK START === */
 /*
-  Legacy card effect, single-ring version:
-  - one large oval behind the employee photo
-  - only the left/right sides are visible
-  - arcs "peek" outside the photo
-  - no second inner ring
-  - text/photo layout stays in the original positions
+  Fix the real "peek" effect from older versions:
+  - draw the watermark from inside .photo-box
+  - put the arcs ABOVE the photo
+  - allow the arcs to extend slightly outside the photo
+  - keep only one ring
+  - keep left/right perfectly symmetric
 */
 
+/* Disable the background ring from v1.5.x */
 .front-white .white-watermark {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: block;
-  pointer-events: none;
+  display: none !important;
 }
 
-/* Single centered oval: creates one arc on each side */
-.front-white .white-watermark::before {
-  content: "";
+/* Let the watermark extend beyond the photo rectangle */
+.front-white .photo-box {
+  position: relative;
+  overflow: visible;
+  margin: 1.7mm auto 1mm;
+}
+
+/* Keep employee photo in its normal rectangle */
+.front-white .photo-box img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* One oval, centered on photo, drawn ABOVE photo */
+.front-white .photo-watermark {
   position: absolute;
+  z-index: 4;
+  display: block !important;
   left: 50%;
-  top: 29.8mm;
-  width: 33.5mm;
-  height: 40.5mm;
-  transform: translateX(-50%);
-  border: 1.75mm solid rgba(92, 151, 203, 0.18);
+  top: 50%;
+  width: 27mm;
+  height: 34mm;
+  transform: translate(-50%, -50%);
+  border: 1.8mm solid rgba(92, 151, 203, 0.22);
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-radius: 50%;
   pointer-events: none;
 }
 
-/* Remove second ring entirely */
-.front-white .white-watermark::after {
-  content: none !important;
-}
-
-/* Do not draw the old oval inside the photo box */
-.front-white .photo-watermark {
-  display: none !important;
-}
-
+/* No watermark for yellow template */
 .front-yellow .white-watermark,
 .front-yellow .photo-watermark {
   display: none !important;
 }
 
-/* Keep actual card content above the watermark */
+/* Keep text above everything */
 .front-white .brand-logo,
 .front-white .company-th,
 .front-white .company-en,
-.front-white .photo-box,
 .front-white .thai-name,
 .front-white .eng-name,
 .front-white .position,
 .front-white .department,
 .front-white .id-line {
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
-/* Restore original card spacing explicitly */
-.front-white .photo-box {
-  margin: 1.7mm auto 1mm;
-}
-
+/* Restore clean text layout */
 .front-white .thai-name,
 .front-white .eng-name,
 .front-white .position,
@@ -745,4 +746,4 @@ label {
 .front-white .eng-name {
   display: block;
 }
-/* === v1.5.9 LEGACY SINGLE PEEK WATERMARK END === */
+/* === v1.6.0 PHOTO PEEK WATERMARK END === */
