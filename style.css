@@ -660,7 +660,16 @@ label {
   z-index: 3;
 }
 
-/* === v1.5.7 LEGACY WATERMARK START === */
+/* === v1.5.8 LEGACY PEEK WATERMARK START === */
+/*
+  Recreate the legacy-card watermark effect:
+  - one large oval behind the employee photo
+  - only the left/right sides are visible
+  - arcs extend ("peek") outside the photo
+  - perfectly symmetric
+  - text/photo layout stays in the original positions
+*/
+
 .front-white .white-watermark {
   position: absolute;
   inset: 0;
@@ -669,98 +678,82 @@ label {
   pointer-events: none;
 }
 
-.front-white .white-watermark::before,
-.front-white .white-watermark::after {
+/* Outer oval: visible only at left/right sides */
+.front-white .white-watermark::before {
   content: "";
   position: absolute;
-  top: 32.5mm;
-  width: 13.5mm;
-  height: 39mm;
-  border: 0;
+  left: 50%;
+  top: 29.6mm;
+  width: 35mm;
+  height: 42mm;
+  transform: translateX(-50%);
+  border: 1.85mm solid rgba(92, 151, 203, 0.20);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
   border-radius: 50%;
   pointer-events: none;
 }
 
-/* Left arc */
-.front-white .white-watermark::before {
-  left: 2.2mm;
-  border-left: 1.8mm solid rgba(92, 151, 203, 0.18);
-  transform: none;
-}
-
-/* Right arc - exact mirror */
+/* Inner oval: second soft arc like the older printed card */
 .front-white .white-watermark::after {
-  right: 2.2mm;
-  border-right: 1.8mm solid rgba(92, 151, 203, 0.18);
-  transform: none;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 31.3mm;
+  width: 30.5mm;
+  height: 38.5mm;
+  transform: translateX(-50%);
+  border: 1.25mm solid rgba(92, 151, 203, 0.13);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-/* Remove old oval drawn over the employee photo */
+/* Do not draw the old oval inside the photo box */
 .front-white .photo-watermark {
   display: none !important;
 }
 
-/* Yellow template does not use this watermark */
 .front-yellow .white-watermark,
 .front-yellow .photo-watermark {
   display: none !important;
 }
 
-/* Pull the photo/text relationship closer like the legacy card */
-.front-white .photo-box {
-  position: relative;
-  z-index: 2;
-  margin: 1.7mm auto -2.8mm;
-}
-
-/* Keep card content above watermark */
+/* Keep actual card content above the watermark */
 .front-white .brand-logo,
 .front-white .company-th,
 .front-white .company-en,
+.front-white .photo-box,
+.front-white .thai-name,
+.front-white .eng-name,
 .front-white .position,
 .front-white .department,
 .front-white .id-line {
   position: relative;
-  z-index: 3;
+  z-index: 2;
 }
 
-/* Make the employee names come out from the photo area */
-.front-white .thai-name {
-  position: relative;
-  z-index: 5;
-  display: table;
-  margin: -0.7mm auto 0;
-  padding: 0 1.5mm;
-  line-height: 1.00;
-  background: rgba(255, 255, 255, 0.94);
-  text-shadow:
-    0 0 1.2mm rgba(255, 255, 255, 0.98),
-    0 0 0.6mm rgba(255, 255, 255, 0.98);
+/* Restore original card spacing explicitly */
+.front-white .photo-box {
+  margin: 1.7mm auto 1mm;
 }
 
+.front-white .thai-name,
+.front-white .eng-name,
+.front-white .position,
+.front-white .department,
+.front-white .id-line {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background: transparent;
+  text-shadow: none;
+}
+
+.front-white .thai-name,
 .front-white .eng-name {
-  position: relative;
-  z-index: 5;
-  display: table;
-  margin: -0.2mm auto 0.1mm;
-  padding: 0 1.4mm;
-  line-height: 1.00;
-  background: rgba(255, 255, 255, 0.94);
-  text-shadow:
-    0 0 1.2mm rgba(255, 255, 255, 0.98),
-    0 0 0.6mm rgba(255, 255, 255, 0.98);
+  display: block;
 }
-
-.front-white .position,
-.front-white .department,
-.front-white .id-line {
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 0.8mm;
-  background: rgba(255, 255, 255, 0.84);
-  text-shadow:
-    0 0 1.2mm rgba(255, 255, 255, 0.98),
-    0 0 0.6mm rgba(255, 255, 255, 0.98);
-}
-/* === v1.5.7 LEGACY WATERMARK END === */
+/* === v1.5.8 LEGACY PEEK WATERMARK END === */
