@@ -659,3 +659,59 @@ label {
   position: relative;
   z-index: 3;
 }
+
+/* === v1.5.4 LEGACY WATERMARK START === */
+.front-white .white-watermark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+.front-white .white-watermark::before,
+.front-white .white-watermark::after {
+  content: "";
+  position: absolute;
+  top: 28.5mm;
+  width: 12.5mm;
+  height: 31.5mm;
+  border: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.front-white .white-watermark::before {
+  left: 1.2mm;
+  border-left: 2mm solid rgba(92, 151, 203, 0.30);
+  transform: rotate(5deg);
+}
+
+.front-white .white-watermark::after {
+  right: 1.2mm;
+  border-right: 2mm solid rgba(92, 151, 203, 0.30);
+  transform: rotate(-5deg);
+}
+
+.front-white .photo-watermark {
+  display: none !important;
+}
+
+.front-yellow .white-watermark,
+.front-yellow .photo-watermark {
+  display: none !important;
+}
+
+.front-white .brand-logo,
+.front-white .company-th,
+.front-white .company-en,
+.front-white .photo-box,
+.front-white .thai-name,
+.front-white .eng-name,
+.front-white .position,
+.front-white .department,
+.front-white .id-line {
+  position: relative;
+  z-index: 2;
+}
+/* === v1.5.4 LEGACY WATERMARK END === */
