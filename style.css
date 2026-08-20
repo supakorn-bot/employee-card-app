@@ -660,36 +660,24 @@ label {
   z-index: 3;
 }
 
-/* === v1.6.6 TALL SOFT LOGO WATERMARK START === */
+/* === v1.6.7 LEGACY ARC WATERMARK START === */
 /*
-  Taller and slightly stretched watermark.
-  - same single logo PNG
-  - taller than v1.6.5
-  - softer / faded
-  - clipped safely inside the card
+  Legacy-style watermark based on the old badge:
+  - no large PSE logo in the middle
+  - only pale blue side arcs
+  - image asset covers the full card and sits behind real content
+  - logo, photo, and employee text stay readable
 */
 .front-white .white-watermark {
   position: absolute;
-  inset: 2.2mm 2.3mm 2.2mm 2.3mm;
+  inset: 0;
   z-index: 1;
   display: block;
   pointer-events: none;
-  overflow: hidden;
+  background: url("./assets/legacy-card-watermark.png") center / 100% 100% no-repeat;
 }
 
-.front-white .white-watermark::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 11.8mm;
-  width: 52mm;
-  height: 62mm;
-  transform: translateX(-50%);
-  background: url("./assets/pse-logo-watermark-large.png") center / 100% 100% no-repeat;
-  pointer-events: none;
-  opacity: 0.92;
-}
-
+.front-white .white-watermark::before,
 .front-white .white-watermark::after {
   content: none !important;
   display: none !important;
@@ -716,4 +704,4 @@ label {
 .front-yellow .photo-watermark {
   display: none !important;
 }
-/* === v1.6.6 TALL SOFT LOGO WATERMARK END === */
+/* === v1.6.7 LEGACY ARC WATERMARK END === */
